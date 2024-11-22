@@ -8,6 +8,7 @@ export default function _layout() {
         <Stack.Screen name="onboardpage" options={{headerShown:false}} />
         <Stack.Screen name="otppage" options={{headerShown:false}}/>
         <Stack.Screen name="welcomepage" options={{headerShown:false}}/>
+        <Stack.Screen name="mainpage" options={{headerShown:false}}/>
     </Stack>
   )
 }

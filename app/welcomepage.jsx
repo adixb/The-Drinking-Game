@@ -1,17 +1,36 @@
-import { StyleSheet, Text, View,Image,TouchableOpacity } from 'react-native'
-import React from 'react'
+import { StyleSheet, Text, View,Image,TouchableOpacity,ActivityIndicator } from 'react-native'
+import React,{useState} from 'react'
 import forward from '../assets/images/forward.png' ; 
 import {useFonts} from 'expo-font'
+import { useRouter } from 'expo-router';
 
 import Logo from "../assets/images/logoIcon.png";
 export default function welcomepage() {
+
+  const [customloader,setCustomLoader] = useState(false)
 
 const [fontloaded] = useFonts({
   poppinsRegular:require('../assets/fonts/Poppins-Regular.ttf')
 })
 
 
+const router = useRouter() ; 
 
+const handleSubmit = ()=>{
+
+  setCustomLoader(true)
+  router.push('/mainpage') ; 
+}
+
+
+ // Show loading indicator while fonts are loading
+ if (!fontloaded) {
+  return (
+    <View style={styles.loaderContainer}>
+      <ActivityIndicator size="large" color="black" />
+    </View>
+  );
+}
 
   return (
     <View style={styles.container}>
@@ -20,7 +39,11 @@ const [fontloaded] = useFonts({
 
      <Text style={styles.welcometext} >Drink, party, and make memories you won’t regret (too much) the next day. Keep it fun, keep it classy, and maybe… keep track!</Text>
 
-     <TouchableOpacity style={styles.forwardbutton}><Text><Image source={forward} style={{width:40,height:40}}></Image></Text></TouchableOpacity>
+      {(customloader===true) ? (
+        <ActivityIndicator size="large" color="black" />
+      ):(<TouchableOpacity style={styles.forwardbutton} onPress={handleSubmit}><Text><Image source={forward} style={{width:40,height:40}}></Image></Text></TouchableOpacity>)}
+
+     
     </View>
   )
 }

@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { StyleSheet, Text, View, Image, TextInput, ScrollView,TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, Image, TextInput, ScrollView,TouchableOpacity,ActivityIndicator } from 'react-native';
 import Logo from "../assets/images/logoIcon.png";
 import { useFonts } from 'expo-font';
 import { useRouter } from 'expo-router';
@@ -52,7 +52,14 @@ export default function OtpPage() {
   };
 
 
-
+ // Show loading indicator while fonts are loading
+ if (!fontLoaded) {
+  return (
+    <View style={styles.loaderContainer}>
+      <ActivityIndicator size="large" color="black" />
+    </View>
+  );
+}
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.headingContainer}>
@@ -85,7 +92,7 @@ export default function OtpPage() {
  
 
       </View>
-      <TouchableOpacity style={styles.buttonContainer}><Text style={styles.buttontext} onPress={handleSubmit}>Submit</Text></TouchableOpacity>
+      <TouchableOpacity style={styles.buttonContainer} onPress={handleSubmit}><Text style={styles.buttontext} >Submit</Text></TouchableOpacity>
 
     </ScrollView>
   );
